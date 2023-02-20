@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>apiKey</key>
-	<string>e8a1f316e92c451b8751d5ab466539e2</string>
-	<key>StoredEmail</key>
-	<string>test@mail.ru</string>
-	<key>StoredPassword</key>
-	<string>123456</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SF-Pro-Display-Regular.otf</string>

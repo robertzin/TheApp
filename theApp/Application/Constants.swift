@@ -10,6 +10,9 @@ import UIKit
 enum Constants {
     
     static let getNewsURL: String = "https://newsapi.org/v2/top-headlines"
+    static let apiKey: String = "e8a1f316e92c451b8751d5ab466539e2"
+    static let adminEmail: String = "test@mail.ru"
+    static let adminPassword: String = "12345"
     
     enum NewsVCType {
         case feed

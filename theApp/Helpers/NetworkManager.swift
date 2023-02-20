@@ -27,7 +27,7 @@ final class NetworkManager: NetworkManagerProtocol {
     func getNews(url: String, completion: @escaping (Result<[ArticleResponseObject]?, Error>) -> Void) {
         
         var components = URLComponents(string: url)
-        let apiKey = Bundle.main.infoDictionary?["apiKey"] as! String
+        let apiKey = Constants.apiKey
         components?.queryItems = []
         components?.queryItems?.append(URLQueryItem(name: "country", value: "us"))
         components?.queryItems?.append(URLQueryItem(name: "apiKey", value: apiKey))

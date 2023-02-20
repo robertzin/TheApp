@@ -173,8 +173,8 @@ final class LoginViewController: UIViewController {
         self.email = emailTextField.text ?? ""
         self.password = passwordTextField.text ?? ""
         
-        let storedEmail = Bundle.main.infoDictionary?["StoredEmail"] as? String
-        let storedPassword = Bundle.main.infoDictionary?["StoredPassword"] as? String
+        let storedEmail = Constants.adminEmail
+        let storedPassword = Constants.adminPassword
         
         if self.email.isEmpty || self.password.isEmpty {
             Alert().presentAlert(vc: self, title: "Ошибка", message: "Заполните пустые поля")
