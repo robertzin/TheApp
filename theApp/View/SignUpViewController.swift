@@ -37,13 +37,13 @@ final class SignUpViewController: UIViewController, UITextFieldDelegate {
         label.text = "У вас есть аккаунт ?"
         label.font = UIFont(name: "SFProDisplay-Regular", size: 13)
         label.textColor = .black
-        label.textAlignment = .center
+        label.textAlignment = .right
         
         let linkLabel = UILabel()
         linkLabel.text = "Войти"
         linkLabel.font = UIFont(name: "SFProDisplay-Bold", size: 13)
         linkLabel.textColor = Constants.Colors.buttonColor
-        linkLabel.textAlignment = .center
+        linkLabel.textAlignment = .left
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(labelLinkTapped))
         linkLabel.isUserInteractionEnabled = true
@@ -119,12 +119,8 @@ final class SignUpViewController: UIViewController, UITextFieldDelegate {
         vStack.snp.makeConstraints { make in
             make.top.equalTo(loginButton.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
-            make.width.equalTo(emailTextField).inset(37.5)
+            make.width.equalTo(loginButton).inset(15)
         }
-    }
-    
-    private func ifUserIsUnique(email: String) -> Bool {
-        return CoreDataManager.shared.isUserEmailPresentedInCoreData(with: email)
     }
     
     @objc private func labelLinkTapped() {
@@ -139,16 +135,16 @@ final class SignUpViewController: UIViewController, UITextFieldDelegate {
             Alert().presentAlert(vc: self, title: "Ошибка", message: "Заполните пустые поля")
         } else if !email.isValidEmail() {
             Alert().presentAlert(vc: self, title: "Ошибка", message: "Некорректный адрес\nэлектронной почты")
-        } else if ifUserIsUnique(email: email) {
+        } else if !CoreDataManager.shared.isUserEmailPresentedInCoreData(with: email) {
             let idx = email.lastIndex(of: "@")
             let name = String(email[..<idx!])
             
-            let user = User()
-            
             // MARK: add user to CoreData
+            let user = User()
             user.set(name: name, email: email, password: password)
             CoreDataManager.shared.saveContext()
-            try! CoreDataManager.shared.usersFetchResultController.performFetch()
+            do { try CoreDataManager.shared.usersFetchResultController.performFetch() }
+            catch { debugPrint("Error while saving new user to CoreData in SignUp View: \(error.localizedDescription)") }
             
             PresenterManager.shared.show(vc: .login)
         } else {

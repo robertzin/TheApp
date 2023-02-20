@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MapKit
 
 extension Int {
     func toMonth() -> String {
@@ -63,4 +64,32 @@ extension String {
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: self)
     }
+}
+
+extension MKMapView {
+    func centerToLocation(
+        _ location: CLLocation,
+        regionRadius: CLLocationDistance = 2500
+    ) {
+        let coordinateRegion = MKCoordinateRegion(
+            center: location.coordinate,
+            latitudinalMeters: regionRadius,
+            longitudinalMeters: regionRadius)
+        setRegion(coordinateRegion, animated: true)
+    }
+    
+    func setCustomCameraZoomRange(_ location: CLLocation) {
+        let region = MKCoordinateRegion(
+            center: location.coordinate,
+            latitudinalMeters: 50000,
+            longitudinalMeters: 60000)
+        self.setCameraBoundary(
+            MKMapView.CameraBoundary(coordinateRegion: region),
+            animated: true)
+        
+        let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 200000)
+        self.setCameraZoomRange(zoomRange, animated: true)
+    }
+    
+    
 }

@@ -92,10 +92,12 @@ final class ResetPasswordViewController: UIViewController {
         
         if email.isEmpty {
             Alert().presentAlert(vc: self, title: "Ошибка", message: "Заполните пустые поля")
-        } else if email.isValidEmail() {
+        } else if !email.isValidEmail() {
+            Alert().presentAlert(vc: self, title: "Ошибка", message: "Некорректный адрес\nэлектронной почты")
+        } else if CoreDataManager.shared.isUserEmailPresentedInCoreData(with: email) {
             Alert().presentAlert(vc: self, title: "Успешно", message: "Инструкции отправлены\nна Вашу электронную почту")
         } else {
-            Alert().presentAlert(vc: self, title: "Ошибка", message: "Некорректный адрес\nэлектронной почты")
+            Alert().presentAlert(vc: self, title: "Ошибка", message: "Пользователя с такой электронной почтой\nне существует")
         }
     }
 }

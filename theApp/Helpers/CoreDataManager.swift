@@ -12,7 +12,7 @@ class CoreDataManager {
     
     static let shared = CoreDataManager()
     
-    static var currentUser: User = User()
+    static var currentUser: User? = nil
     
     private init() {}
     
@@ -59,24 +59,15 @@ class CoreDataManager {
     }
     
     func isUserEmailPresentedInCoreData(with email: String) -> Bool {
-        var isPresented = true
+        var isPresented = false
         let fetchRequest = User.fetchRequest()
         do {
             let users = try context.fetch(fetchRequest)
-            if users.first(where: { $0.email == email }) != nil { isPresented = false }
+            if users.first(where: { $0.email == email }) != nil { isPresented = true }
         } catch { debugPrint("error while isPresented is checked: \(error.localizedDescription)") }
         return isPresented
     }
-    
-    func count() -> Int {
-        let fetchRequest = Article.fetchRequest()
-        do {
-            let count = try context.count(for: fetchRequest)
-            return count
-        } catch { print(error.localizedDescription) }
-        return -1
-    }
-    
+
     func printUser(user: User) {
         debugPrint("""
             - name: \(user.name ?? "nil")
@@ -110,6 +101,17 @@ class CoreDataManager {
         } catch { debugPrint("error while printing CoreData element: \(error.localizedDescription)") }
     }
     
+    func deleteAllUsers() {
+        let deleteRequest = User.fetchRequest()
+        do {
+            let allData = try context.fetch(deleteRequest)
+            for user in allData {
+                context.delete(user)
+            }
+        } catch { debugPrint("error while delete all CoreData: \(error.localizedDescription)") }
+        self.saveContext()
+    }
+    
     func deleteAllEntities() {
         let deleteRequest = Article.fetchRequest()
         do {
@@ -124,8 +126,6 @@ class CoreDataManager {
     func entityForName(entityName: String) -> NSEntityDescription {
         return NSEntityDescription.entity(forEntityName: entityName, in: context)!
     }
-    
-    
     
     // MARK: - Core Data stack
     

@@ -46,7 +46,8 @@ final class NewsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        try! presenter.fetchResultController.performFetch()
+        do { try presenter.fetchResultController.performFetch() }
+        catch { debugPrint("Error in News ViewController WillAppear method: \(error.localizedDescription)") }
         self.collectionView.reloadData()
     }
     
@@ -137,7 +138,9 @@ extension NewsViewController: LikeButtonDelegate {
         article.liked = !article.liked
         
         presenter.coreDataManager.saveContext()
-        try! presenter.fetchResultController.performFetch()
+        do { try presenter.fetchResultController.performFetch() }
+        catch { debugPrint("Error in News ViewController LikeButtonDelegate: \(error.localizedDescription)") }
+        
         self.collectionView.reloadData()
     }
 }
@@ -152,7 +155,8 @@ extension NewsViewController: NewsProtocol {
     func success() {
         activityIndicator.stopAnimating()
         presenter.coreDataManager.saveContext()
-        try! presenter.fetchResultController.performFetch()
+        do { try presenter.fetchResultController.performFetch() }
+        catch { debugPrint("Error in News ViewController success method: \(error.localizedDescription)") }
         self.collectionView.reloadData()
     }
     

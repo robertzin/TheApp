@@ -16,10 +16,11 @@ extension User {
         return NSFetchRequest<User>(entityName: "User")
     }
 
+    @NSManaged public var email: String?
     @NSManaged public var id: UUID?
     @NSManaged public var name: String?
-    @NSManaged public var email: String?
     @NSManaged public var password: String?
+    @NSManaged public var imageUrl: String?
 
 }
 

@@ -20,8 +20,6 @@ enum TextField {
 
 final class LoginViewController: UIViewController, UITextFieldDelegate {
     
-    var presenter: LoginPresenter!
-    
     private var email: String = ""
     
     private var password: String = ""
@@ -118,7 +116,6 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(loginButton)
         view.addSubview(vStack)
         view.addSubview(resetPasswordLabel)
-        
     }
     
     private func setupConstraints() {
@@ -161,7 +158,8 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func resetPasswordLabelTapped() {
-        presenter.pushViewController(.resetPassword)
+        let vc = ResetPasswordViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func buttonTapped() {
@@ -176,16 +174,10 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         if self.email == storedEmail && self.password == storedPassword {
             PresenterManager.shared.show(vc: .tabBar)
-        } else if presenter.ifUserIsPresentedInCoreData(email: email, password: password) {
+        } else if CoreDataManager.shared.isUserPresentedInCoreData(email: email, password: password) {
             PresenterManager.shared.show(vc: .tabBar)
         } else {
             Alert().presentAlert(vc: self, title: "Ошибка", message: "Указан неправильный логин\nили пароль")
         }
-    }
-}
-
-extension LoginViewController: LoginProtocol {
-    func openDiskItemView(vc: UIViewController) {
-        navigationController?.pushViewController(vc, animated: true)
     }
 }

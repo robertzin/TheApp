@@ -42,7 +42,6 @@ class PresenterManager {
     }
 
     func show(vc: vc) {
-        
         var viewController: UIViewController
         
         switch vc {
@@ -50,8 +49,6 @@ class PresenterManager {
             viewController = TabBarController()
         case .login:
             let vc = LoginViewController()
-            let presenter = LoginPresenter(view: vc)
-            vc.presenter = presenter
             viewController = UINavigationController(rootViewController: vc)
             viewController.navigationController?.navigationBar.prefersLargeTitles = true
         case .signUp:
@@ -59,6 +56,7 @@ class PresenterManager {
             viewController = UINavigationController(rootViewController: vc)
             viewController.navigationController?.navigationBar.prefersLargeTitles = true
         }
+        
         DispatchQueue.main.async {
             if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,
                let window = sceneDelegate.window {

@@ -10,9 +10,10 @@ import UIKit
 final class ProfileViewController: UIViewController {
     
     private lazy var imageView: UIImageView = {
-        let iv = UIImageView(frame: CGRect(x: 0, y: 0, width: 120, height: 120))
-        iv.image = UIImage(named: "profilePhoto")
-        iv.layer.cornerRadius = 50
+        let iv = UIImageView()
+        iv.image = UIImage()
+        iv.layer.cornerRadius = 60
+        iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
         return iv
     }()
@@ -20,6 +21,8 @@ final class ProfileViewController: UIViewController {
     private var nameLabel = PaddingLabel()
     
     private var emailLabel = PaddingLabel()
+    
+    private let activityIndicator = UIActivityIndicatorView()
     
     private var user: User?
     
@@ -45,6 +48,7 @@ final class ProfileViewController: UIViewController {
     
     private func setupViews() {
         self.user = CoreDataManager.currentUser
+        
         view.backgroundColor = Constants.Colors.backgroundColor
         navigationItem.title = "Профиль"
         
@@ -52,15 +56,26 @@ final class ProfileViewController: UIViewController {
         emailLabel = textLabel(text: user?.email ?? "lol@kek.com")
         
         view.addSubview(imageView)
+        view.addSubview(activityIndicator)
         view.addSubview(nameLabel)
         view.addSubview(emailLabel)
         view.addSubview(logOutLabel)
+        
+        activityIndicator.startAnimating()
+        downloadImage(urlString: user?.imageUrl ?? "")
     }
     
     private func setupConstraints() {
         imageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(30)
+            make.width.height.equalTo(120)
+        }
+        
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalTo(imageView.snp.center)
+            make.width.equalTo(140)
+            make.height.equalTo(140)
         }
         
         nameLabel.snp.makeConstraints { make in
@@ -95,6 +110,26 @@ final class ProfileViewController: UIViewController {
         label.textAlignment = .left
         label.padding(0, 0, 10, 10)
         return label
+    }
+    
+    private func downloadImage(urlString: String) {
+        guard let url = URL(string: urlString) else {
+            self.activityIndicator.stopAnimating()
+            self.imageView.image = UIImage(named: "profilePhoto")!
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url, completionHandler: { [weak self] data, response, error in
+            if let data = data {
+                DispatchQueue.main.async { [weak self] in
+                    self?.activityIndicator.stopAnimating()
+                    self?.imageView.image = UIImage(data: data)
+                }
+            } else {
+                self?.activityIndicator.stopAnimating()
+                self?.imageView.image = UIImage(named: "profilePhoto")!
+            }
+        }).resume()
     }
     
     @objc private func logOutLabelTapped() {
