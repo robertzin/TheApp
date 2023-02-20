@@ -58,7 +58,7 @@ final class NewsViewController: UIViewController {
     
     private func setupViews() {
         view.backgroundColor = Constants.Colors.backgroundColor
-
+        
         navigationItem.title = self.viewControllerType == .feed ? "Новости" : "Избранное"
         navigationController?.navigationBar.tintColor = Constants.Colors.buttonColor
         

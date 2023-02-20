@@ -19,7 +19,7 @@ class TabBarController: UITabBarController {
         tabBar.unselectedItemTintColor = Constants.Colors.greyColor
         self.selectedIndex = 0
     }
-
+    
     func setupViews() {
         viewControllers = [
             presenterManager.createNewsViewController(image: UIImage(named: "newsLogo")!),
@@ -40,13 +40,13 @@ class TabBarController: UITabBarController {
 
 extension TabBarController: UITabBarControllerDelegate  {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-
+        
         guard let fromView = selectedViewController?.view, let toView = viewController.view else {
-          return false
+            return false
         }
-
+        
         if fromView != toView {
-          UIView.transition(from: fromView, to: toView, duration: 0.3, options: [.transitionCrossDissolve], completion: nil)
+            UIView.transition(from: fromView, to: toView, duration: 0.3, options: [.transitionCrossDissolve], completion: nil)
         }
         return true
     }

@@ -96,7 +96,7 @@ final class FavouritesCollectionViewCell: UICollectionViewCell {
             make.width.equalTo(22)
             make.height.equalTo(22)
         }
-
+        
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(dateLabel.snp.bottom).offset(8)
             make.left.equalTo(contentView.snp.left).inset(8)

@@ -141,7 +141,7 @@ final class NewsCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         loadingState = .notLoading
     }
-
+    
     func set(article: Article) {
         if let url = article.urlToImage { downloadImage(urlString: url) }
         self.dateLabel.text = article.publishedAt?.toFormattedDateString()

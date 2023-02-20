@@ -10,7 +10,7 @@ import UIKit
 final class ProfileViewController: UIViewController {
     
     private lazy var imageView: UIImageView = {
-       let iv = UIImageView(frame: CGRect(x: 0, y: 0, width: 120, height: 120))
+        let iv = UIImageView(frame: CGRect(x: 0, y: 0, width: 120, height: 120))
         iv.image = UIImage(named: "profilePhoto")
         iv.layer.cornerRadius = 50
         iv.clipsToBounds = true
@@ -20,6 +20,8 @@ final class ProfileViewController: UIViewController {
     private var nameLabel = PaddingLabel()
     
     private var emailLabel = PaddingLabel()
+    
+    private var user: User?
     
     private lazy var logOutLabel: UILabel = {
         let label = UILabel()
@@ -34,7 +36,7 @@ final class ProfileViewController: UIViewController {
         
         return label
     }()
- 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -42,11 +44,12 @@ final class ProfileViewController: UIViewController {
     }
     
     private func setupViews() {
+        self.user = CoreDataManager.currentUser
         view.backgroundColor = Constants.Colors.backgroundColor
         navigationItem.title = "Профиль"
         
-        nameLabel = textLabel(text: "Robert")
-        emailLabel = textLabel(text: "abc@gmail.com")
+        nameLabel = textLabel(text: user?.name ?? "User")
+        emailLabel = textLabel(text: user?.email ?? "lol@kek.com")
         
         view.addSubview(imageView)
         view.addSubview(nameLabel)

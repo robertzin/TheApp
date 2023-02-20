@@ -12,6 +12,8 @@ class CoreDataManager {
     
     static let shared = CoreDataManager()
     
+    static var currentUser: User = User()
+    
     private init() {}
     
     lazy var context: NSManagedObjectContext = {
@@ -48,9 +50,8 @@ class CoreDataManager {
         let fetchRequest = User.fetchRequest()
         do {
             let users = try context.fetch(fetchRequest)
-            if users.contains(where: { user in
-                user.email == email && user.password == password
-            }) {
+            if let user = users.first(where: { $0.email == email && $0.password == password }) {
+                CoreDataManager.currentUser = user
                 return true
             }
         } catch { debugPrint("error while isPresented is checked: \(error.localizedDescription)") }

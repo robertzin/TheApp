@@ -57,7 +57,7 @@ final class SignUpViewController: UIViewController, UITextFieldDelegate {
         vs.spacing = 6
         return vs
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -126,7 +126,7 @@ final class SignUpViewController: UIViewController, UITextFieldDelegate {
     private func ifUserIsUnique(email: String) -> Bool {
         return CoreDataManager.shared.isUserEmailPresentedInCoreData(with: email)
     }
-
+    
     @objc private func labelLinkTapped() {
         PresenterManager.shared.show(vc: .login)
     }
@@ -141,7 +141,7 @@ final class SignUpViewController: UIViewController, UITextFieldDelegate {
             Alert().presentAlert(vc: self, title: "Ошибка", message: "Некорректный адрес\nэлектронной почты")
         } else if ifUserIsUnique(email: email) {
             let idx = email.lastIndex(of: "@")
-            let name = String(email[...idx!])
+            let name = String(email[..<idx!])
             
             let user = User()
             

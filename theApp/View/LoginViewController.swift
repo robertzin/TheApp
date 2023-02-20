@@ -19,7 +19,7 @@ enum TextField {
 }
 
 final class LoginViewController: UIViewController, UITextFieldDelegate {
-     
+    
     var presenter: LoginPresenter!
     
     private var email: String = ""
@@ -155,11 +155,7 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
             make.width.equalToSuperview()
         }
     }
-    
-    private func checkEmailAndPassword() {
-        
-    }
-    
+
     @objc private func labelLinkTapped() {
         PresenterManager.shared.show(vc: .signUp)
     }
@@ -178,7 +174,6 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
         if self.email.isEmpty || self.password.isEmpty {
             Alert().presentAlert(vc: self, title: "Ошибка", message: "Заполните пустые поля")
         }
-        
         if self.email == storedEmail && self.password == storedPassword {
             PresenterManager.shared.show(vc: .tabBar)
         } else if presenter.ifUserIsPresentedInCoreData(email: email, password: password) {
