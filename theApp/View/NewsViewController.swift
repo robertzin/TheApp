@@ -50,7 +50,7 @@ final class NewsViewController: UIViewController {
         catch { debugPrint("Error in News ViewController WillAppear method: \(error.localizedDescription)") }
         self.collectionView.reloadData()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -59,8 +59,8 @@ final class NewsViewController: UIViewController {
     
     private func setupViews() {
         view.backgroundColor = Constants.Colors.backgroundColor
-        
         navigationItem.title = self.viewControllerType == .feed ? "Новости" : "Избранное"
+        navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.tintColor = Constants.Colors.buttonColor
         
         view.addSubview(collectionView)

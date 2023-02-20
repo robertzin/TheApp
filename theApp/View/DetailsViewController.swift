@@ -74,16 +74,11 @@ final class DetailsViewController: UIViewController {
         setupViews()
         setupConstraints()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
+
     private func setupViews() {
         view.backgroundColor = Constants.Colors.backgroundColor
         navigationItem.title = article.title
-        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
         
         view.addSubview(dateLabel)
         view.addSubview(heartButton)

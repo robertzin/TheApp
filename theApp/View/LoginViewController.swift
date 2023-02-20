@@ -18,7 +18,7 @@ enum TextField {
     case password
 }
 
-final class LoginViewController: UIViewController, UITextFieldDelegate {
+final class LoginViewController: UIViewController {
     
     private var email: String = ""
     
@@ -105,8 +105,13 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
     private func setupViews() {
         view.backgroundColor = Constants.Colors.backgroundColor
         navigationItem.title = "Вход"
-        navigationController?.navigationBar.tintColor = Constants.Colors.buttonColor
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = Constants.Colors.buttonColor
+        
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
         
         emailTextField = textField(type: .email)
         passwordTextField = textField(type: .password)
@@ -152,6 +157,8 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
             make.width.equalToSuperview()
         }
     }
+    
+
 
     @objc private func labelLinkTapped() {
         PresenterManager.shared.show(vc: .signUp)
@@ -171,8 +178,9 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
         
         if self.email.isEmpty || self.password.isEmpty {
             Alert().presentAlert(vc: self, title: "Ошибка", message: "Заполните пустые поля")
-        }
-        if self.email == storedEmail && self.password == storedPassword {
+        } else if !self.email.isValidEmail() {
+            Alert().presentAlert(vc: self, title: "Ошибка", message: "Проверьте корректность ввода почты")
+        } else if self.email == storedEmail && self.password == storedPassword {
             PresenterManager.shared.show(vc: .tabBar)
         } else if CoreDataManager.shared.isUserPresentedInCoreData(email: email, password: password) {
             PresenterManager.shared.show(vc: .tabBar)

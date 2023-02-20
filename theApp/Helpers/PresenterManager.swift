@@ -37,7 +37,6 @@ class PresenterManager {
         let navController = UINavigationController(rootViewController: rootViewController)
         navController.tabBarItem.image = image
         navController.title = title
-        navController.navigationBar.prefersLargeTitles = true
         return navController
     }
 
@@ -50,11 +49,9 @@ class PresenterManager {
         case .login:
             let vc = LoginViewController()
             viewController = UINavigationController(rootViewController: vc)
-            viewController.navigationController?.navigationBar.prefersLargeTitles = true
         case .signUp:
             let vc = SignUpViewController()
             viewController = UINavigationController(rootViewController: vc)
-            viewController.navigationController?.navigationBar.prefersLargeTitles = true
         }
         
         DispatchQueue.main.async {

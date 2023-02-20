@@ -83,7 +83,9 @@ final class SignUpViewController: UIViewController, UITextFieldDelegate {
         view.backgroundColor = Constants.Colors.backgroundColor
         navigationItem.title = "Регистрация"
         navigationController?.navigationBar.tintColor = Constants.Colors.buttonColor
-        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
         
         emailTextField = textField(type: .email)
         passwordTextField = textField(type: .password)
@@ -123,6 +125,16 @@ final class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
     @objc private func labelLinkTapped() {
         PresenterManager.shared.show(vc: .login)
     }
@@ -134,7 +146,7 @@ final class SignUpViewController: UIViewController, UITextFieldDelegate {
         if self.email.isEmpty || self.password.isEmpty {
             Alert().presentAlert(vc: self, title: "Ошибка", message: "Заполните пустые поля")
         } else if !email.isValidEmail() {
-            Alert().presentAlert(vc: self, title: "Ошибка", message: "Некорректный адрес\nэлектронной почты")
+            Alert().presentAlert(vc: self, title: "Ошибка", message: "Проверьте корректность ввода почты")
         } else if !CoreDataManager.shared.isUserEmailPresentedInCoreData(with: email) {
             let idx = email.lastIndex(of: "@")
             let name = String(email[..<idx!])

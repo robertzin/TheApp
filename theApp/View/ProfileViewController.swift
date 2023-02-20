@@ -48,9 +48,9 @@ final class ProfileViewController: UIViewController {
     
     private func setupViews() {
         self.user = CoreDataManager.currentUser
-        
-        view.backgroundColor = Constants.Colors.backgroundColor
         navigationItem.title = "Профиль"
+        view.backgroundColor = Constants.Colors.backgroundColor
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         nameLabel = textLabel(text: user?.name ?? "User")
         emailLabel = textLabel(text: user?.email ?? "lol@kek.com")

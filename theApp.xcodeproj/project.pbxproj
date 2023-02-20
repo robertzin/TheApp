@@ -38,6 +38,7 @@
 		4796B1DE29A37C03005CBF08 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4796B1DC29A37C03005CBF08 /* User+CoreDataClass.swift */; };
 		4796B1DF29A37C03005CBF08 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4796B1DD29A37C03005CBF08 /* User+CoreDataProperties.swift */; };
 		4796B1E129A39047005CBF08 /* MapLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4796B1E029A39047005CBF08 /* MapLocation.swift */; };
+		4796B1E329A3F03F005CBF08 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4796B1E229A3F03F005CBF08 /* LoadingViewController.swift */; };
 		93270A9AFEA68435860A5ADD /* Pods_theApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 485AD664893AF93672CE6F4F /* Pods_theApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,7 @@
 		4796B1DC29A37C03005CBF08 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		4796B1DD29A37C03005CBF08 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		4796B1E029A39047005CBF08 /* MapLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocation.swift; sourceTree = "<group>"; };
+		4796B1E229A3F03F005CBF08 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		485AD664893AF93672CE6F4F /* Pods_theApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_theApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		890661532A54584B7C2C2B77 /* Pods-theApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-theApp.release.xcconfig"; path = "Target Support Files/Pods-theApp/Pods-theApp.release.xcconfig"; sourceTree = "<group>"; };
 		F6BD617D12DBDD23648A9AF3 /* Pods-theApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-theApp.debug.xcconfig"; path = "Target Support Files/Pods-theApp/Pods-theApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		4765DAAA299F880300BB77D4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4796B1E229A3F03F005CBF08 /* LoadingViewController.swift */,
 				4765DAAC299F88B300BB77D4 /* LoginViewController.swift */,
 				4796B1D629A2BE9A005CBF08 /* SignUpViewController.swift */,
 				4796B1D229A2B3D5005CBF08 /* ResetPasswordViewController.swift */,
@@ -337,6 +340,7 @@
 				4796B1DE29A37C03005CBF08 /* User+CoreDataClass.swift in Sources */,
 				4796B1C829A25D4F005CBF08 /* Article+CoreDataProperties.swift in Sources */,
 				4765DAAF299F8A0400BB77D4 /* Constants.swift in Sources */,
+				4796B1E329A3F03F005CBF08 /* LoadingViewController.swift in Sources */,
 				4743E47629A0C7BE004B7902 /* NewsResponseObject.swift in Sources */,
 				4743E47229A0C50D004B7902 /* NewsPresenter.swift in Sources */,
 				4796B1DF29A37C03005CBF08 /* User+CoreDataProperties.swift in Sources */,

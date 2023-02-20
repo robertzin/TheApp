@@ -50,16 +50,14 @@ final class ResetPasswordViewController: UIViewController {
         setupViews()
         setupConstraints()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
+
     private func setupViews() {
         view.backgroundColor = Constants.Colors.backgroundColor
-        navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.title = "Сброс пароля"
+        navigationItem.largeTitleDisplayMode = .never
+        
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
         
         view.addSubview(textField)
         view.addSubview(resetPasswordButton)
@@ -86,16 +84,19 @@ final class ResetPasswordViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
     }
-    
+
     @objc private func resetPasswordButtonTapped() {
         let email = textField.text ?? ""
         
         if email.isEmpty {
             Alert().presentAlert(vc: self, title: "Ошибка", message: "Заполните пустые поля")
         } else if !email.isValidEmail() {
-            Alert().presentAlert(vc: self, title: "Ошибка", message: "Некорректный адрес\nэлектронной почты")
+            Alert().presentAlert(vc: self, title: "Ошибка", message: "Проверьте корректность ввода почты")
         } else if CoreDataManager.shared.isUserEmailPresentedInCoreData(with: email) {
-            Alert().presentAlert(vc: self, title: "Успешно", message: "Инструкции отправлены\nна Вашу электронную почту")
+            Alert().presentAlertWithNoButtons(vc: self, title: "Успешно", message: "Инструкция по сбросу пароля\nпридет Вам на почту")
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+                PresenterManager.shared.show(vc: .login)
+            }
         } else {
             Alert().presentAlert(vc: self, title: "Ошибка", message: "Пользователя с такой электронной почтой\nне существует")
         }

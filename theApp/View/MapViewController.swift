@@ -16,6 +16,7 @@ final class MapViewController: UIViewController {
         map.centerToLocation(initialLocation)
         map.setCustomCameraZoomRange(initialLocation)
         map.addAnnotations(MapLocation.antalyaMapAnnotations)
+        map.register(MapLocationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         return map
     }()
     

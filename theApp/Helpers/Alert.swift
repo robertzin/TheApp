@@ -27,6 +27,21 @@ class Alert {
         vc.present(alert, animated: true)
     }
     
+    func presentAlertWithNoButtons(vc: UIViewController, title: String, message: String) {
+        
+        let titleAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProDisplay-Bold", size: 17)!]
+        let titleString = NSAttributedString(string: title, attributes: titleAttributes)
+        
+        let messageAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProDisplay-Regular", size: 13)!]
+        let messageString = NSAttributedString(string: message, attributes: messageAttributes)
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.setValue(titleString, forKey: "attributedTitle")
+        alert.setValue(messageString, forKey: "attributedMessage")
+        
+        vc.present(alert, animated: true)
+    }
+    
     func presentTwoActionAlert(vc: UIViewController, title: String, message: String) {
         
         let titleAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProDisplay-Bold", size: 17)!]
