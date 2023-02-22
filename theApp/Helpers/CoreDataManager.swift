@@ -22,7 +22,7 @@ class CoreDataManager {
     
     lazy var newsFetchResultController: NSFetchedResultsController<Article> = {
         let fetchRequest = Article.fetchRequest()
-        let sortDescriptors = [NSSortDescriptor(key: "publishedAt", ascending: true)]
+        let sortDescriptors = [NSSortDescriptor(key: "publishedAt", ascending: false)]
         fetchRequest.sortDescriptors = sortDescriptors
         let fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         return fetchResultController
